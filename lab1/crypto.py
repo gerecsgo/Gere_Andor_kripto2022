@@ -11,8 +11,12 @@ Replace this with a description of the program.
 """
 from base64 import decode
 from math import ceil
+import string
 import utils
+import numpy as np
 
+np.set_printoptions(threshold=np.inf)
+np.set_printoptions(linewidth=np.inf)
 # Caesar Cipher
 
 def encrypt_caesar(plaintext):
@@ -96,6 +100,46 @@ def generate_private_key(n=8):
     """
     raise NotImplementedError  # Your implementation here
 
+def encrypt_scytale(plaintext, circumference):
+    n = circumference
+    m = len(plaintext)
+    matrix = np.empty([n, m], dtype=str)
+
+    for i in range(n):
+        for j in range(m):
+            matrix[i][j] = '.'
+
+    for c in range(len(plaintext)):
+        matrix[c%circumference][c] = plaintext[c]
+
+    encoded = ''
+    for i in range(n):
+        for j in range(m):  
+            if(matrix[i][j] != '.'): 
+                encoded += matrix[i][j]
+    print(encoded)
+
+def decrypt_scytale(ciphertext, circumference):
+    n = circumference
+    m = len(ciphertext)
+    matrix = np.empty([n, m], dtype=str)
+
+    for i in range(n):
+        for j in range(m):
+            matrix[i][j] = '.' 
+        
+    ind = 0
+    for c in range(len(ciphertext)):
+        matrix[(ind//len(ciphertext))][ind%len(ciphertext)] = ciphertext[c]
+        ind += circumference
+    
+    decoded = ''
+    for j in range(m):
+        for i in range(n):
+            if(matrix[i][j] != '.'):
+                decoded += matrix[i][j]
+    print(decoded)
+
 def create_public_key(private_key):
     """Create a public key corresponding to the given private key.
 
@@ -154,8 +198,8 @@ def decrypt_mh(message, private_key):
     raise NotImplementedError  # Your implementation here
 
 def main():
-    str = encrypt_vigenere('WEAREDISCOVERED', 'LEMON')
-    decrypt_vigenere(str, 'LEMON')
+    decrypt_scytale('IRYYATBHMVAEHEDLURLP', 5)
+
 
 if __name__ == "__main__": main()
     
