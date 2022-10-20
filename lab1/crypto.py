@@ -9,42 +9,67 @@ SUNet: <SUNet ID>
 
 Replace this with a description of the program.
 """
+from base64 import decode
+from math import ceil
 import utils
 
 # Caesar Cipher
 
 def encrypt_caesar(plaintext):
-    """Encrypt plaintext using a Caesar cipher.
-
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
-
+    text = plaintext.upper()
+    n = 3
+    encoded = ''
+    for i in range(len(text)):
+        if(ord(text[i]) >= 65 and ord(text[i]) <= 90):
+          encoded += chr((ord(text[i]) + n - 65) % 26 + 65)
+        else:
+          encoded += text[i] 
+    print(encoded)
+    return encoded
 
 def decrypt_caesar(ciphertext):
-    """Decrypt a ciphertext using a Caesar cipher.
-
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
-
+    text = ciphertext.upper()
+    n = 3
+    decoded = ''
+    for i in range(len(text)):
+        if(ord(text[i]) >= 65 and ord(text[i]) <= 90):
+          decoded += chr((ord(text[i]) - n - 65) % 26 + 65)
+        else:
+          decoded += text[i]  
+    print(decoded)
+    return decoded
 
 # Vigenere Cipher
 
 def encrypt_vigenere(plaintext, keyword):
-    """Encrypt plaintext using a Vigenere cipher with a keyword.
+    text = plaintext.upper()
+    key = keyword.upper()
+    encoded = ''
+    cursor = 0
+    for i in range(len(text)):
+        if(ord(text[i]) >= 65 and ord(text[i]) <= 90):
+          encoded += chr((ord(text[i]) + ord(key[cursor%len(key)]) - 65*2) % 26 + 65)
+          cursor += 1
+        else:
+          encoded += text[i] 
+    print(encoded)
+    return encoded
 
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
 
 
 def decrypt_vigenere(ciphertext, keyword):
-    """Decrypt ciphertext using a Vigenere cipher with a keyword.
-
-    Add more implementation details here.
-    """
-    raise NotImplementedError  # Your implementation here
+    text = ciphertext.upper()
+    key = keyword.upper()
+    decoded = ''
+    cursor = 0
+    for i in range(len(text)):
+        if(ord(text[i]) >= 65 and ord(text[i]) <= 90):
+          decoded += chr((ord(text[i]) - ord(key[cursor%len(key)]) - 65*2) % 26 + 65)
+          cursor += 1
+        else:
+          decoded += text[i] 
+    print(decoded)
+    return decoded
 
 
 # Merkle-Hellman Knapsack Cryptosystem
@@ -128,3 +153,9 @@ def decrypt_mh(message, private_key):
     """
     raise NotImplementedError  # Your implementation here
 
+def main():
+    str = encrypt_vigenere('WEAREDISCOVERED', 'LEMON')
+    decrypt_vigenere(str, 'LEMON')
+
+if __name__ == "__main__": main()
+    
