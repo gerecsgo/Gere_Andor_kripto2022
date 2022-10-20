@@ -117,11 +117,14 @@ def encrypt_scytale(plaintext, circumference):
         for j in range(m):  
             if(matrix[i][j] != '.'): 
                 encoded += matrix[i][j]
+    print(matrix)
     print(encoded)
 
 def decrypt_scytale(ciphertext, circumference):
     n = circumference
     m = len(ciphertext)
+    m_rounded = ceil(len(ciphertext)/n)*n
+    
     matrix = np.empty([n, m], dtype=str)
 
     for i in range(n):
@@ -130,14 +133,18 @@ def decrypt_scytale(ciphertext, circumference):
         
     ind = 0
     for c in range(len(ciphertext)):
-        matrix[(ind//len(ciphertext))][ind%len(ciphertext)] = ciphertext[c]
+        if(ind%m_rounded+ind//m_rounded >= len(ciphertext)):
+            ind += circumference
+        matrix[ind//m_rounded][ind%m_rounded+ind//m_rounded] = ciphertext[c]
         ind += circumference
+
     
     decoded = ''
     for j in range(m):
         for i in range(n):
             if(matrix[i][j] != '.'):
                 decoded += matrix[i][j]
+    print(matrix)
     print(decoded)
 
 def create_public_key(private_key):
@@ -198,7 +205,8 @@ def decrypt_mh(message, private_key):
     raise NotImplementedError  # Your implementation here
 
 def main():
-    decrypt_scytale('IRYYATBHMVAEHEDLURLP', 5)
+    encrypt_scytale('IAMHURTVERYBADL', 5)
+    decrypt_scytale('IRYATBMVAHEDURL', 5)
 
 
 if __name__ == "__main__": main()
