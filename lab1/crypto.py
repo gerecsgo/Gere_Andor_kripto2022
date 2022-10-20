@@ -21,6 +21,9 @@ np.set_printoptions(linewidth=np.inf)
 # Caesar Cipher
 
 def encrypt_caesar(plaintext):
+    if(type(plaintext) != str):
+        print("Error: input must be a string.")
+        exit
     text = plaintext.upper()
     n = 3
     encoded = ''
@@ -33,6 +36,9 @@ def encrypt_caesar(plaintext):
     return encoded
 
 def decrypt_caesar(ciphertext):
+    if(type(ciphertext) != str):
+        print("Error: input must be a string.")
+        return
     text = ciphertext.upper()
     n = 3
     decoded = ''
@@ -47,6 +53,9 @@ def decrypt_caesar(ciphertext):
 # Vigenere Cipher
 
 def encrypt_vigenere(plaintext, keyword):
+    if(type(plaintext) != str):
+        print("Error: input must be a string.")
+        return
     text = plaintext.upper()
     key = keyword.upper()
     encoded = ''
@@ -63,6 +72,9 @@ def encrypt_vigenere(plaintext, keyword):
 
 
 def decrypt_vigenere(ciphertext, keyword):
+    if(type(ciphertext) != str):
+        print("Error: input must be a string.")
+        return
     text = ciphertext.upper()
     key = keyword.upper()
     decoded = ''
@@ -102,6 +114,9 @@ def generate_private_key(n=8):
     raise NotImplementedError  # Your implementation here
 
 def encrypt_scytale(plaintext, circumference):
+    if(type(plaintext) != str):
+        print("Error: input must be a string.")
+        return
     n = circumference
     m = len(plaintext)
     matrix = np.empty([n, m], dtype=str)
@@ -122,6 +137,9 @@ def encrypt_scytale(plaintext, circumference):
     print(encoded)
 
 def decrypt_scytale(ciphertext, circumference):
+    if(type(ciphertext) != str):
+        print("Error: input must be a string.")
+        return
     n = circumference
     m = len(ciphertext)
     m_rounded = ceil(len(ciphertext)/n)*n
@@ -149,6 +167,9 @@ def decrypt_scytale(ciphertext, circumference):
     print(decoded)
 
 def encrypt_railfence(plaintext, num_rails):
+    if(type(plaintext) != str):
+        print("Error: input must be a string.")
+        return
     n = num_rails
     m = len(plaintext)
 
@@ -184,6 +205,9 @@ def encrypt_railfence(plaintext, num_rails):
     print(encoded)
 
 def decrypt_railfence(ciphertext, num_rails):
+    if(type(ciphertext) != str):
+        print("Error: input must be a string.")
+        return
     n = num_rails
     m = len(ciphertext)  
 
@@ -284,7 +308,7 @@ def decrypt_mh(message, private_key):
     raise NotImplementedError  # Your implementation here
 
 def main():
-    encrypt_railfence('WEAREDISCOVEREDFLEEATONCE', 3)
+    encrypt_railfence(23523525, 3)
     decrypt_railfence('WECRLTEERDSOEEFEAOCAIVDEN', 3)
 
 
