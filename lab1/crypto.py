@@ -11,6 +11,7 @@ Replace this with a description of the program.
 """
 from base64 import decode
 from math import ceil
+from pydoc import plain
 import string
 import utils
 import numpy as np
@@ -147,6 +148,84 @@ def decrypt_scytale(ciphertext, circumference):
     print(matrix)
     print(decoded)
 
+def encrypt_railfence(plaintext, num_rails):
+    n = num_rails
+    m = len(plaintext)
+
+    matrix = np.empty([n, m], dtype=str)
+
+    for i in range(n):
+        for j in range(m):
+            matrix[i][j] = '.' 
+
+    inc = 1
+    buff = 0
+
+    for c in range(len(plaintext)):
+        matrix[buff][c] = plaintext[c]
+        if(inc == 1):
+            if(buff < num_rails-1):
+                buff += inc
+            else:
+                inc = -1
+                buff += inc
+        else:
+            if(buff > 0):
+                buff += inc
+            else: 
+                inc = 1
+                buff += inc
+    encoded = ''
+    for i in range(n):
+        for j in range(m):  
+            if(matrix[i][j] != '.'): 
+                encoded += matrix[i][j]
+    print(matrix)
+    print(encoded)
+
+def decrypt_railfence(ciphertext, num_rails):
+    n = num_rails
+    m = len(ciphertext)  
+
+    matrix = np.empty([n, m], dtype=str)
+
+    for i in range(n):
+        for j in range(m):
+            matrix[i][j] = '.' 
+
+    inc = 1
+    buff = 0
+
+    for c in range(m):
+        matrix[buff][c] = '$'
+        if(inc == 1):
+            if(buff < num_rails-1):
+                buff += inc
+            else:
+                inc = -1
+                buff += inc
+        else:
+            if(buff > 0):
+                buff += inc
+            else: 
+                inc = 1
+                buff += inc
+
+    ind = 0
+    for i in range(n):
+        for j in range(m):
+            if(matrix[i][j] == '$'):
+                matrix[i][j] = ciphertext[ind]
+                ind += 1
+    
+    decoded = ''
+    for j in range(m):
+        for i in range(n):
+            if(matrix[i][j] != '.'):
+                decoded += matrix[i][j]
+    print(matrix)
+    print(decoded)
+
 def create_public_key(private_key):
     """Create a public key corresponding to the given private key.
 
@@ -205,8 +284,8 @@ def decrypt_mh(message, private_key):
     raise NotImplementedError  # Your implementation here
 
 def main():
-    encrypt_scytale('IAMHURTVERYBADL', 5)
-    decrypt_scytale('IRYATBMVAHEDURL', 5)
+    encrypt_railfence('WEAREDISCOVEREDFLEEATONCE', 3)
+    decrypt_railfence('WECRLTEERDSOEEFEAOCAIVDEN', 3)
 
 
 if __name__ == "__main__": main()
