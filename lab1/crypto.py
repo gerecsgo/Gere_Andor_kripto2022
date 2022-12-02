@@ -133,8 +133,7 @@ def encrypt_scytale(plaintext, circumference):
         for j in range(m):  
             if(matrix[i][j] != '.'): 
                 encoded += matrix[i][j]
-    print(matrix)
-    print(encoded)
+    return encoded
 
 def decrypt_scytale(ciphertext, circumference):
     if(type(ciphertext) != str):
@@ -143,7 +142,7 @@ def decrypt_scytale(ciphertext, circumference):
     n = circumference
     m = len(ciphertext)
     m_rounded = ceil(len(ciphertext)/n)*n
-    
+    print(m)
     matrix = np.empty([n, m], dtype=str)
 
     for i in range(n):
@@ -163,8 +162,7 @@ def decrypt_scytale(ciphertext, circumference):
         for i in range(n):
             if(matrix[i][j] != '.'):
                 decoded += matrix[i][j]
-    print(matrix)
-    print(decoded)
+    return decoded
 
 def encrypt_railfence(plaintext, num_rails):
     if(type(plaintext) != str):
@@ -201,8 +199,7 @@ def encrypt_railfence(plaintext, num_rails):
         for j in range(m):  
             if(matrix[i][j] != '.'): 
                 encoded += matrix[i][j]
-    print(matrix)
-    print(encoded)
+    return encoded
 
 def decrypt_railfence(ciphertext, num_rails):
     if(type(ciphertext) != str):
@@ -247,8 +244,7 @@ def decrypt_railfence(ciphertext, num_rails):
         for i in range(n):
             if(matrix[i][j] != '.'):
                 decoded += matrix[i][j]
-    print(matrix)
-    print(decoded)
+    return decoded
 
 def create_public_key(private_key):
     """Create a public key corresponding to the given private key.
@@ -308,7 +304,7 @@ def decrypt_mh(message, private_key):
     raise NotImplementedError  # Your implementation here
 
 def main():
-    encrypt_railfence(23523525, 3)
+    encrypt_railfence('WEAREDISCOVEREDFLEEATONCE', 3)
     decrypt_railfence('WECRLTEERDSOEEFEAOCAIVDEN', 3)
 
 
