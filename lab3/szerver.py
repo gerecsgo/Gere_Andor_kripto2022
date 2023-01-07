@@ -1,6 +1,7 @@
 
 import socket
 import threading
+import crypto
 
 host = '127.0.0.1'
 port = 9000
@@ -18,6 +19,12 @@ print("A szerver elindult.")
 clients = []
 usernames = []
 
+def checkUser(usernm):
+    for i in usernames:
+        if i == usernm:
+            return False
+    return True
+
 def receive(conn,addr):
     global username
     global index
@@ -30,7 +37,9 @@ def receive(conn,addr):
                 print('register parancs meghivva egy kliens altal.')
                 resp = 'Meghivtad a register parancsot.'
                 conn.send(resp.encode())
-                break
+            elif(msg == 'join'):
+                clients.append(conn)
+                print(addr)
     finally:
         conn.close()
 
