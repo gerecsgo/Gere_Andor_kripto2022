@@ -8,7 +8,7 @@ import utils
 import numpy as np
 import crypto
 
-
+# A háziból megvan: Solitaire, Merkell, KeyServer rész, unit testek. A kliens peer-to-peer beszélgetés nincs meg.
 solitaire_kulcs = np.random.permutation([28, 15, 20, 30, 7, 9, 12, 49, 40, 6, 19, 48, 33, 34, 31, 27, 18, 38, 10, 46, 1, 14, 23, 39, 53, 29, 37, 54, 3, 22, 21, 51, 8, 45, 16, 44, 11, 17, 5, 26, 42, 2, 36, 24, 52, 47, 35, 25, 4, 50, 32, 43, 13, 41])
 
 # SZERVER CSATLAKOZAS
